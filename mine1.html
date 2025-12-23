@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanafi Khairul Shiddiq | Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0f172a;
+            --accent-primary: #8b5cf6; /* Violet */
+            --accent-secondary: #06b6d4; /* Cyan */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- AMBIENT BACKGROUND (Glow Effects) --- */
+        .ambient-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.25) 0%, transparent 50%);
+            animation: pulseLight 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseLight {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #fff;
+        }
+
+        /* --- GLASSMORPHISM CARD STYLE --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight); /* Top highlight for 3D effect */
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Primary Button */
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            background: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            border-color: var(--accent-primary);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* --- SECTIONS COMMON --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            text-align: center;
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 3px;
+            width: 0%; /* Animated via JS */
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .copyright {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-light"></div>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <div class="reveal">
+                    <h1>Hanafi Khairul Shiddiq</h1>
+                    <p>Computer Science Student | Data Science Enthusiast | Creative Coder</p>
+                    <a href="#about" class="btn">Lihat Portofolio</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title reveal">Tentang Saya</h2>
+                <div class="glass-card reveal">
+                    <div class="about-grid">
+                        <div style="text-align: center;">
+                            <div class="profile-avatar">HK</div>
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: 1rem;">Aspiring Data Scientist</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                                Saya adalah mahasiswa Ilmu Komputer angkatan 2025 yang memiliki ketertarikan mendalam pada dunia Data, Machine Learning, dan Algorithmic Trading. 
+                            </p>
+                            <p style="color: var(--text-muted);">
+                                Saat ini saya sedang fokus mengembangkan algoritma trading kripto, mempelajari C++ dan Python, serta mempersiapkan diri untuk kompetisi Data Science. Saya percaya bahwa kode bukan sekadar sintaks, tetapi seni memecahkan masalah.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title reveal">Keahlian</h2>
+                <div class="skills-grid">
+                    
+                    <div class="glass-card skill-item reveal">
+                        <div class="skill-name">Python & Data Science</div>
+                        <p style="font-size: 0.8rem; color: #94a3b8;">Pandas, NumPy, Scikit-Learn</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="--target-width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card skill-item reveal">
+                        <div class="skill-name">C++ & Algorithms</div>
+                        <p style="font-size: 0.8rem; color: #94a3b8;">Competitive Programming</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="--target-width: 80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card skill-item reveal">
+                        <div class="skill-name">Machine Learning</div>
+                        <p style="font-size: 0.8rem; color: #94a3b8;">Predictive Models</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="--target-width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card skill-item reveal">
+                        <div class="skill-name">Trading Algorithms</div>
+                        <p style="font-size: 0.8rem; color: #94a3b8;">Technical Analysis Logic</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="--target-width: 70%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="#" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                </a>
+            </div>
+            <p class="copyright">&copy; 2025 Hanafi Khairul Shiddiq. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- JAVASCRIPT UNTUK INTERAKSI ---
+
+        // 1. Scroll Reveal Animation
+        // Menggunakan Intersection Observer API untuk performa terbaik
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger progress bars jika elemen skill terlihat
+                    if (entry.target.classList.contains('skill-item')) {
+                        const bar = entry.target.querySelector('.progress-fill');
+                        const targetWidth = bar.getAttribute('style').split(':')[1].replace(';', '').trim();
+                        // Reset width dulu agar animasi jalan
+                        bar.style.width = '0%'; 
+                        setTimeout(() => {
+                            bar.style.width = targetWidth; 
+                        }, 100);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 2. Parallax effect sederhana pada mouse move untuk background (Optional, menambah kesan "hidup")
+        document.addEventListener('mousemove', (e) => {
+            const blobs = document.querySelector('.ambient-light');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Gerakkan background sedikit berlawanan arah mouse
+            blobs.style.transform = `translate(-${x * 20}px, -${y * 20}px) scale(1.1)`;
+        });
+
+    </script>
+</body>
+</html>
